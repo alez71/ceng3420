@@ -230,9 +230,6 @@ void run(int num_cycles) {
 
 /* return the word content start from `start_addr` */
 int read_mem(int start_addr) {
-    /*
-     * Lab2-2 assignment.
-     */
     if (start_addr % 2 || start_addr >= BYTES_IN_MEM)
         error("read the un-aligned address, or the address is out of boundary.\n");
 
@@ -253,9 +250,6 @@ int read_mem(int start_addr) {
  *
  */
 int sext(int imm, int width) {
-    /*
-     * Lab2-2 assignment.
-     */
     if (imm >> (width - 1)) {
         /* sign bit is 1 */
 		return (0xFFFFFFFF & imm) | (0xFFFFFFFF << width);
