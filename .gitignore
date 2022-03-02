@@ -56,7 +56,7 @@ dkms.conf
 *.cod
 tags
 asm
-sim*
+sim
 lc
 dumpsim
 .DS_Store
