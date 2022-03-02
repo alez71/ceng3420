@@ -1,6 +1,6 @@
 # /***************************************************************/
 # /*                                                             */
-# /*                  RISCV-LC Assembler                         */
+# /*                  RISCV-LC Simulator                         */
 # /*                                                             */
 # /*                     CEG3420 Lab2                            */
 # /*                 cbai@cse.cuhk.edu.hk                        */
@@ -9,20 +9,16 @@
 # /***************************************************************/
 
 SRC := $(shell find . -name "*.c")
-TGT := asm
+TGT := sim
 OPT := -Wall -Werror -std=c99 -Wno-return-type -O3
-VAL := tools/validate.sh
 
 .default: all
 
-all: asm
+all: sim
 
 $(TGT): $(SRC)
 	$(CC) $(OPT) $^ -o $@
 
-validate: $(TGT)
-	bash $(VAL)
-
 .PHONY: clean
 clean:
-	rm -f asm *.bin
+	rm -f sim
