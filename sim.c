@@ -582,6 +582,15 @@ void handle_instruction() {
                         error("unknown opcode 0x%08x is captured.\n", cur_inst);
                 }
             break;
+        case (0x1F << 2) + 0x03:
+            /*
+             * Handle halt instruction
+             */
+            if (funct3 == 0x07)
+                handle_halt(cur_inst);
+            else
+                error("unknown opcode 0x%08x is captured.\n", cur_inst);
+            break;
         /*
          * Lab2-2 assignment: Decode other types of RV32I instructions
          */
