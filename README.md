@@ -8,6 +8,7 @@ CUHK CENG3420 course labs
 For more info., please refer to the slides: http://www.cse.cuhk.edu.hk/~byu/CENG3420/2022Spring/index.html
 
 ## History
+* Mar. 21, 2022: Add static libraries for Lab 3-1
 * Mar.  9, 2022: Lab 3-1 is released
 * Mar.  8, 2022: Remove the 'HALT' instruction implementation
 * Mar.  8, 2022: Fix the validation program in Lab 2-1
