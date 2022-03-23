@@ -13,12 +13,12 @@
 
 
 void _assert(const char* expr_str, bool expr, const char* file, int line, const char* msg) {
-    if (!expr) {
-    	error("Assertion failed: %s, expected: %s, source: %s, line: %d\n",
-    		msg, expr_str, file, line
-    	);
-    	exit(EXIT_FAILURE);
-    }
+	if (!expr) {
+		error("Assertion failed: %s, expected: %s, source: %s, line: %d\n",
+			msg, expr_str, file, line
+		);
+		exit(EXIT_FAILURE);
+	}
 }
 
 

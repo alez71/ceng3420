@@ -32,7 +32,7 @@
 #define CONTROL_STATE_ROWS 128
 #define INITIAL_STATE_NUMBER 0
 /*
- * definitions of special base addresses 
+ * definitions of special base addresses
  * `CODE_BASE_ADDR`: the base address to locate source codes
  * `TRAPVEC_BASE_ADDR`: exceptions & interruptions' base address
  */
@@ -151,9 +151,9 @@ typedef struct {
     unsigned int MAR;
     /* instruction register */
     unsigned int IR;
-    /* B flag register */
+    /* branch flag register */
     unsigned int B;
-    /* ready bit indicator */
+    /* memory ready bit indicator */
     int READY;
     /* micro-code / microintruction */
     int MICROINSTRUCTION[CONTROL_SIGNAL_BITS];
