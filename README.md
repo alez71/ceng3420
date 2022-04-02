@@ -8,6 +8,7 @@ CUHK CENG3420 course labs
 For more info., please refer to the slides: http://www.cse.cuhk.edu.hk/~byu/CENG3420/2022Spring/index.html
 
 ## History
+* Apr.  2, 2022: The figure 'fsm.pdf' has been updated
 * Apr.  1, 2022: The figure 'riscv-lc.pdf' has been updated
 * Mar. 23, 2022: Lab 3-2 is released
 * Mar. 21, 2022: Add static libraries for Lab 3-1
