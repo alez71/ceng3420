@@ -32,7 +32,7 @@
 #define CONTROL_STATE_ROWS 128
 #define INITIAL_STATE_NUMBER 0
 /*
- * definitions of special base addresses
+ * definitions of special base addresses 
  * `CODE_BASE_ADDR`: the base address to locate source codes
  * `TRAPVEC_BASE_ADDR`: exceptions & interruptions' base address
  */
