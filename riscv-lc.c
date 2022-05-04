@@ -59,14 +59,64 @@ void cycle_memory() {
             /*
              * Lab3-2 assignment
              */
-            error("Lab3-2 assignment: write to the main memory");
+            int DATASIZE = get_DATASIZE(CURRENT_LATCHES.MICROINSTRUCTION);
+            int funct3 = mask_val(CURRENT_LATCHES.IR, 14, 12);
+            int datasize_result = datasize_mux(DATASIZE, funct3, 0);
+            switch (datasize_result & 0x03){
+                case(0):
+                case(1):
+                    //word
+                    MEMORY[CURRENT_LATCHES.MAR] = MASK7_0(CURRENT_LATCHES.MDR);
+                    MEMORY[CURRENT_LATCHES.MAR+1] = MASK15_8(CURRENT_LATCHES.MDR);
+                    MEMORY[CURRENT_LATCHES.MAR+2] = MASK23_16(CURRENT_LATCHES.MDR);
+                    MEMORY[CURRENT_LATCHES.MAR+3] = MASK31_24(CURRENT_LATCHES.MDR);
+                    break;
+                case(2):
+                    //half word
+                    MEMORY[CURRENT_LATCHES.MAR] = MASK7_0(CURRENT_LATCHES.MDR);
+                    MEMORY[CURRENT_LATCHES.MAR+1] = MASK15_8(CURRENT_LATCHES.MDR);
+                    break;
+                case(3):
+                    //byte
+                    MEMORY[CURRENT_LATCHES.MAR] = MASK7_0(CURRENT_LATCHES.MDR);
+                    break;            
+                    }
         } else {
             /* read */
             /*
              * Lab3-2 assignment
              * Tips: assign the read value to `MEM_VAL`
              */
-            error("Lab3-2 assignment: read from the main memory");
+            int DATASIZE = get_DATASIZE(CURRENT_LATCHES.MICROINSTRUCTION);
+            int funct3 = mask_val(CURRENT_LATCHES.IR, 14, 12);
+            int datasize_result = datasize_mux(DATASIZE, funct3, 0);
+            unsigned int val = 0;
+            printf("datasize = %d, funct3 = %d, result = %d\n",DATASIZE,funct3,datasize_result);
+            switch (datasize_result & 0x3){
+            case(0):
+            case(1):
+                //default, 4 byte, word
+                val = MEMORY[CURRENT_LATCHES.MAR];
+                val += MEMORY[CURRENT_LATCHES.MAR+1] << 8;
+                val += MEMORY[CURRENT_LATCHES.MAR+2] << 16;
+                val += MEMORY[CURRENT_LATCHES.MAR+3] << 24;
+                MEM_VAL = val;
+                printf("word val = 0x%08x\n",MEM_VAL);
+                break;
+            case(2):
+                //halfword
+                val = MEMORY[CURRENT_LATCHES.MAR];
+                val += MEMORY[CURRENT_LATCHES.MAR+1] << 8;
+                MEM_VAL = sext_unit(val, 16);
+                printf("hword val = 0x%08x\n",MEM_VAL);
+                break;
+            case(3):
+                //byte
+                val = MEMORY[CURRENT_LATCHES.MAR];
+                MEM_VAL = sext_unit(val, 8);
+                printf("byte val = 0x%08x\n",MEM_VAL);
+                break;
+            }
         }
         mem_cycle_cnt++;
     } else
@@ -105,28 +155,31 @@ void latch_datapath_values() {
         /*
          *  Lab3-2 assignment
          */
-        error("Lab3-2 assignment: handle LD_REG");
+        int dest_reg = mask_val(CURRENT_LATCHES.IR, 11, 7);
+        NEXT_LATCHES.REGS[dest_reg] = BUS;
+        
     }
     /* LD.MAR */
     if (get_LD_MAR(CURRENT_LATCHES.MICROINSTRUCTION)) {
         /*
          *  Lab3-2 assignment
          */
-        error("Lab3-2 assignment: handle LD_MAR");
+        NEXT_LATCHES.MAR = BUS;
     }
     /* LD.IR */
     if (get_LD_IR(CURRENT_LATCHES.MICROINSTRUCTION)) {
         /*
          *  Lab3-2 assignment
          */
-        error("Lab3-2 assignment: handle LD_IR");
+        NEXT_LATCHES.IR = BUS;
     }
     /* LD.PC */
     if (get_LD_PC(CURRENT_LATCHES.MICROINSTRUCTION)) {
         /*
          *  Lab3-2 assignment
          */
-        error("Lab3-2 assignment: handle LD_PC");
+        int pc_mux_result = pc_mux(get_PCMUX(CURRENT_LATCHES.MICROINSTRUCTION), CURRENT_LATCHES.PC+4, BUS);
+        NEXT_LATCHES.PC = pc_mux_result;
     }
     /* RESET */
     if (get_RESET(CURRENT_LATCHES.MICROINSTRUCTION))
