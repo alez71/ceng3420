@@ -91,7 +91,6 @@ void cycle_memory() {
             int funct3 = mask_val(CURRENT_LATCHES.IR, 14, 12);
             int datasize_result = datasize_mux(DATASIZE, funct3, 0);
             unsigned int val = 0;
-            printf("datasize = %d, funct3 = %d, result = %d\n",DATASIZE,funct3,datasize_result);
             switch (datasize_result & 0x3){
             case(0):
             case(1):
@@ -100,21 +99,18 @@ void cycle_memory() {
                 val += MEMORY[CURRENT_LATCHES.MAR+1] << 8;
                 val += MEMORY[CURRENT_LATCHES.MAR+2] << 16;
                 val += MEMORY[CURRENT_LATCHES.MAR+3] << 24;
-                MEM_VAL = val;
-                printf("word val = 0x%08x\n",MEM_VAL);
+                MEM_VAL = val;  
                 break;
             case(2):
                 //halfword
                 val = MEMORY[CURRENT_LATCHES.MAR];
                 val += MEMORY[CURRENT_LATCHES.MAR+1] << 8;
                 MEM_VAL = sext_unit(val, 16);
-                printf("hword val = 0x%08x\n",MEM_VAL);
                 break;
             case(3):
                 //byte
                 val = MEMORY[CURRENT_LATCHES.MAR];
                 MEM_VAL = sext_unit(val, 8);
-                printf("byte val = 0x%08x\n",MEM_VAL);
                 break;
             }
         }
